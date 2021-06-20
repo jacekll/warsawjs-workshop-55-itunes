@@ -1,6 +1,6 @@
-import {ChakraProvider, Input, ListItem, UnorderedList} from "@chakra-ui/react"
+import {ChakraProvider, Input, Link} from "@chakra-ui/react"
 import './App.css';
-import {Badge, Stack, Button} from "@chakra-ui/react"
+import {Stack, Button} from "@chakra-ui/react"
 import {useState} from "react"
 import {
   Table,
@@ -9,8 +9,7 @@ import {
   Image,
   Tr,
   Th,
-  Td,
-  TableCaption,
+    Td
 } from "@chakra-ui/react"
 
 function Itunes() {
@@ -34,36 +33,35 @@ function Itunes() {
                         `https://itunes.apple.com/search?term=${encodeURIComponent(searchTerm)}&entity=musicVideo`
                     );
                     const data = await result.json();
-                    console.log(data);
+                    console.log(data.results);
                     setResults(data.results);
                 }}>Search</Button>
             </Stack>
             <Table variant="simple">
-                  <Thead>
+                <Thead>
                     <Tr>
-                      <Th>Artist</Th>
-                      <Th>Track</Th>
-                      <Th></Th>
+                        <Th>Artist</Th>
+                        <Th>Track</Th>
+                        <Th></Th>
                     </Tr>
-                  </Thead>
-                  <Tbody>
+                </Thead>
+                <Tbody>
                     {
-                    results.map((result) => (
-                        <Tr>
-                            <Td>{result.artistName}</Td>
-                            <Td>{result.trackName}</Td>
-                            <Td><Image height="100px" src={result.artworkUrl100}/></Td>
-                        </Tr>
-                    ))
+                        results.map((result) => (
+                            <Tr>
+                                <Td>{result.artistName}</Td>
+                                <Td><Link href={result.trackViewUrl} isExternal>{result.trackName}</Link></Td>
+                                <Td><Image height="100px" src={result.artworkUrl100}/></Td>
+                            </Tr>
+                        ))
                     }
-                  </Tbody>
+                </Tbody>
                 </Table>
         </Stack>
     )
 }
 
 function App() {
-    const [count, setCount] = useState(5);
     return (
         <ChakraProvider>
             <div className="App">
@@ -72,8 +70,6 @@ function App() {
                         <Itunes></Itunes>
                     </Stack>
                 </header>
-
-
             </div>
         </ChakraProvider>
     );
