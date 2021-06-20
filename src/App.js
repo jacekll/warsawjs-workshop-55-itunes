@@ -100,7 +100,7 @@ function Itunes() {
             </Stack>
             {showSpinner && <Spinner />}
             { results.length &&
-            <Table variant="simple">
+            <Table variant="simple" width="1000px">
                 <Thead>
                     <Tr>
                         <Th>Artist</Th>
@@ -113,9 +113,9 @@ function Itunes() {
                     {
                         results.map((result) => (
                             <Tr key={result.trackId}>
-                                <Td>{result.artistName}</Td>
-                                <Td><Link href={result.trackViewUrl} isExternal>{result.trackName}</Link></Td>
-                                <Td>
+                                <Td maxW="300px">{result.artistName}</Td>
+                                <Td maxW="300px"><Link href={result.trackViewUrl} isExternal>{result.trackName}</Link></Td>
+                                <Td minW="120px">
                                     <Image borderRadius="full" objectFit="cover" width="100px" height="100px" src={result.artworkUrl100}/></Td>
                                 <Td>
                                     <Detail result={result} />
