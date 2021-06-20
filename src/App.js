@@ -1,8 +1,8 @@
-import {AspectRatio, ChakraProvider, Input, Link, Spinner} from "@chakra-ui/react"
+import {AspectRatio, Badge, ChakraProvider, Input, Link, Spinner} from "@chakra-ui/react"
 import './App.css';
 import {Stack, Button} from "@chakra-ui/react"
-import {useState} from "react"
 
+import { useState, useEffect } from "react";
 import { useDisclosure } from "@chakra-ui/react"
 
 import {
@@ -26,31 +26,53 @@ import {
 } from "@chakra-ui/react"
 
 function Detail({ result }) {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [artist, setArtist] = useState();
+
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    (async () => {
+      const artistResult = await fetch(
+        `https://itunes.apple.com/lookup?id=${result.artistId}`
+      );
+      const data = await artistResult.json();
+      setArtist(data.results[0]);
+    })();
+  }, [isOpen, result]);
+
   return (
     <>
-      <Button onClick={onOpen} colorScheme="blue" >View</Button>
-
+      <Button colorScheme="blue" onClick={onOpen}>
+        Open Modal
+      </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>{result.trackName}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <AspectRatio maxW="580px" ratio={1}>
-                <iframe title="listen" src={result.previewUrl} allowFullScreen />
+            {artist && (
+              <Badge>
+                {artist.artistName} ({artist.primaryGenreName})
+              </Badge>
+            )}
+            <AspectRatio maxW="560px" ratio={1}>
+              <iframe title="naruto" src={result.previewUrl} allowFullScreen />
             </AspectRatio>
           </ModalBody>
+
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button variant="ghost">Secondary Action</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
     </>
-  )
+  );
 }
 
 function Itunes() {
