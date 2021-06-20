@@ -46,7 +46,7 @@ function Itunes() {
                             <Tr>
                                 <Td>{result.artistName}</Td>
                                 <Td><Link href={result.trackViewUrl} isExternal>{result.trackName}</Link></Td>
-                                <Td><Image height="100px" src={result.artworkUrl100}/></Td>
+                                <Td><Image borderRadius="full" objectFit="cover" width="100px" height="100px" src={result.artworkUrl100}/></Td>
                             </Tr>
                         ))
                     }
