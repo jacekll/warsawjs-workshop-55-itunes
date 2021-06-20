@@ -90,7 +90,7 @@ function Itunes() {
                 <Tbody>
                     {
                         results.map((result) => (
-                            <Tr>
+                            <Tr key={result.trackId}>
                                 <Td>{result.artistName}</Td>
                                 <Td><Link href={result.trackViewUrl} isExternal>{result.trackName}</Link></Td>
                                 <Td>
