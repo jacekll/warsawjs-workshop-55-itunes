@@ -46,7 +46,7 @@ function Detail({ result }) {
   return (
     <>
       <Button colorScheme="blue" onClick={onOpen}>
-        Open Modal
+       Listen
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -99,7 +99,7 @@ function Itunes() {
                 }}>Search</Button>
             </Stack>
             {showSpinner && <Spinner />}
-            if (results.length) {
+            { results.length &&
             <Table variant="simple">
                 <Thead>
                     <Tr>
