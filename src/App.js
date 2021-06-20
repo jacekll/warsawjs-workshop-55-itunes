@@ -15,12 +15,6 @@ import {
 function Itunes() {
     const [searchTerm, setSarchTerm] = useState("");
     const [results, setResults] = useState([
-        {
-            name: "WarsawJS",
-        },
-        {
-            name: "React",
-        }
     ])
     return (
         <Stack direction="column">
@@ -37,6 +31,7 @@ function Itunes() {
                     setResults(data.results);
                 }}>Search</Button>
             </Stack>
+            if (results.length) {
             <Table variant="simple">
                 <Thead>
                     <Tr>
@@ -57,6 +52,7 @@ function Itunes() {
                     }
                 </Tbody>
                 </Table>
+            }
         </Stack>
     )
 }
